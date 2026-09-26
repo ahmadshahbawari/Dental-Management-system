@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState, useMemo } from 'react';
+=======
+import { useState } from 'react';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
@@ -6,8 +10,12 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+<<<<<<< HEAD
 import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs';
 import { Pagination, usePagination } from '@/components/ui/pagination';
+=======
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
@@ -18,7 +26,11 @@ import {
   Dialog, DialogContent, DialogDescription, DialogFooter,
   DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
+<<<<<<< HEAD
 import { Search, DollarSign, Plus, Eye, TrendingDown, FileText, Package, Wrench, AlertCircle, CheckCircle, BarChart3, Filter } from 'lucide-react';
+=======
+import { Search, DollarSign, Plus, MoreVertical, TrendingDown, FileText, Package, Wrench, AlertCircle, CheckCircle, BarChart3 } from 'lucide-react';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
 interface Expense {
   id: string;
@@ -54,18 +66,29 @@ export default function ExpensesPage() {
 
   const showSuccess = (msg: string) => { setSuccessMsg(msg); setTimeout(() => setSuccessMsg(''), 2500); };
 
+<<<<<<< HEAD
   const filteredExpenses = useMemo(() => expenses.filter(exp => {
+=======
+  const filteredExpenses = expenses.filter(exp => {
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
     const q = search.toLowerCase();
     const matchSearch = exp.expenseId.toLowerCase().includes(q) || exp.description.toLowerCase().includes(q) || exp.category.toLowerCase().includes(q);
     const matchTab =
       activeTab === 'all' ||
       (activeTab === 'this-month' && (exp.date === 'Today' || exp.date === 'Yesterday')) ||
+<<<<<<< HEAD
       (activeTab === 'pending'    && exp.status === 'Pending') ||
       (activeTab === 'recurring'  && exp.expenseId.includes('043'));
     return matchSearch && matchTab;
   }), [expenses, search, activeTab]);
 
   const { page, pageSize, paged, setPage, setPageSize } = usePagination(filteredExpenses, 10);
+=======
+      (activeTab === 'pending' && exp.status === 'Pending') ||
+      (activeTab === 'recurring' && exp.expenseId.includes('043'));
+    return matchSearch && matchTab;
+  });
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
   const handleAdd = () => {
     if (!form.description || !form.amount) return;
@@ -117,12 +140,18 @@ export default function ExpensesPage() {
 
       <div className="flex items-center justify-between">
         <div>
+<<<<<<< HEAD
           <h1 className="text-xl font-bold tracking-tight">Expenses</h1>
           <p className="text-xs text-muted-foreground">Track and manage business expenses</p>
+=======
+          <h1 className="text-3xl font-bold tracking-tight">Expenses</h1>
+          <p className="text-muted-foreground">Track and manage business expenses</p>
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
         </div>
         <Button onClick={() => setAddOpen(true)}><Plus className="mr-2 h-4 w-4" />Add Expense</Button>
       </div>
 
+<<<<<<< HEAD
       {/* Stats — top of page */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
@@ -166,6 +195,27 @@ export default function ExpensesPage() {
               <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
                 <TabsList className="hidden" />
                 <TabsContent value={activeTab} className="mt-0">
+=======
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-3 space-y-6">
+          <Card>
+            <CardHeader><CardTitle>Expense Management</CardTitle><CardDescription>Track all business expenses</CardDescription></CardHeader>
+            <CardContent>
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input placeholder="Search expenses..." className="pl-10" value={search} onChange={e => setSearch(e.target.value)} />
+                </div>
+              </div>
+              <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
+                <TabsList>
+                  <TabsTrigger value="all">All ({expenses.length})</TabsTrigger>
+                  <TabsTrigger value="this-month">This Month</TabsTrigger>
+                  <TabsTrigger value="pending">Pending ({expenses.filter(e => e.status === 'Pending').length})</TabsTrigger>
+                  <TabsTrigger value="recurring">Recurring</TabsTrigger>
+                </TabsList>
+                <TabsContent value={activeTab} className="mt-4">
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -182,7 +232,11 @@ export default function ExpensesPage() {
                       {filteredExpenses.length === 0 && (
                         <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground py-8">No expenses found</TableCell></TableRow>
                       )}
+<<<<<<< HEAD
                       {paged.map((exp) => (
+=======
+                      {filteredExpenses.map((exp) => (
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                         <TableRow key={exp.id}>
                           <TableCell className="font-medium">{exp.expenseId}</TableCell>
                           <TableCell>{exp.description}</TableCell>
@@ -196,6 +250,7 @@ export default function ExpensesPage() {
                           </TableCell>
                           <TableCell>{getStatusBadge(exp.status)}</TableCell>
                           <TableCell>
+<<<<<<< HEAD
                             <div className="flex items-center gap-1">
                               <Button variant="ghost" size="icon" className="h-7 w-7" title="View Details">
                                 <Eye className="h-3.5 w-3.5" />
@@ -211,11 +266,26 @@ export default function ExpensesPage() {
                                 <AlertCircle className="h-3.5 w-3.5" />
                               </Button>
                             </div>
+=======
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon"><MoreVertical className="h-4 w-4" /></Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem>View Details</DropdownMenuItem>
+                                <DropdownMenuItem>Edit Expense</DropdownMenuItem>
+                                <DropdownMenuItem>Attach Receipt</DropdownMenuItem>
+                                {exp.status === 'Pending' && <DropdownMenuItem onClick={() => { setExpenses(expenses.map(e => e.id === exp.id ? { ...e, status: 'Approved' as const } : e)); showSuccess('Expense approved!'); }}>Approve</DropdownMenuItem>}
+                                <DropdownMenuItem className="text-red-600" onClick={() => { setExpenses(expenses.filter(e => e.id !== exp.id)); showSuccess('Expense deleted!'); }}>Delete</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                           </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
                   </Table>
+<<<<<<< HEAD
                   <Pagination
                     total={filteredExpenses.length}
                     page={page}
@@ -223,6 +293,8 @@ export default function ExpensesPage() {
                     onPageChange={setPage}
                     onPageSizeChange={setPageSize}
                   />
+=======
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                 </TabsContent>
               </Tabs>
             </CardContent>

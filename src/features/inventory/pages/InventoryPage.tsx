@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState, useMemo } from 'react';
+=======
+import { useState } from 'react';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
@@ -7,15 +11,28 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+<<<<<<< HEAD
 import { Pagination, usePagination } from '@/components/ui/pagination';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import { Search, Package, Plus, AlertTriangle, TrendingDown, TrendingUp, Eye, CheckCircle } from 'lucide-react';
+=======
+import {
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
+} from '@/components/ui/select';
+import {
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter,
   DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
+<<<<<<< HEAD
+=======
+import { Search, Package, Plus, AlertTriangle, TrendingDown, TrendingUp, MoreVertical, CheckCircle } from 'lucide-react';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
 interface InventoryItem {
   id: string;
@@ -62,7 +79,11 @@ export default function InventoryPage() {
     return 'In Stock';
   };
 
+<<<<<<< HEAD
   const filteredItems = useMemo(() => items.filter(item => {
+=======
+  const filteredItems = items.filter(item => {
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
     const q = search.toLowerCase();
     const matchSearch = item.code.toLowerCase().includes(q) || item.name.toLowerCase().includes(q) || item.category.toLowerCase().includes(q);
     const matchTab =
@@ -71,9 +92,13 @@ export default function InventoryPage() {
       (activeTab === 'materials' && item.category === 'Dental Materials') ||
       (activeTab === 'consumables' && item.category === 'Consumables');
     return matchSearch && matchTab;
+<<<<<<< HEAD
   }), [items, search, activeTab]);
 
   const { page, pageSize, paged, setPage, setPageSize } = usePagination(filteredItems, 10);
+=======
+  });
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
   const handleAddItem = () => {
     if (!form.name || !form.code) return;
@@ -139,6 +164,7 @@ export default function InventoryPage() {
 
       <div className="flex items-center justify-between">
         <div>
+<<<<<<< HEAD
           <h1 className="text-xl font-bold tracking-tight">Inventory</h1>
           <p className="text-xs text-muted-foreground">Manage materials, supplies, and stock levels</p>
         </div>
@@ -162,6 +188,17 @@ export default function InventoryPage() {
         ))}
       </div>
 
+=======
+          <h1 className="text-3xl font-bold tracking-tight">Inventory</h1>
+          <p className="text-muted-foreground">Manage materials, supplies, and stock levels</p>
+        </div>
+        <Button onClick={() => setAddItemOpen(true)}>
+          <Plus className="mr-2 h-4 w-4" />
+          Add New Item
+        </Button>
+      </div>
+
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-3 space-y-6">
           <Card>
@@ -201,7 +238,11 @@ export default function InventoryPage() {
                       {filteredItems.length === 0 && (
                         <TableRow><TableCell colSpan={8} className="text-center text-muted-foreground py-8">No items found</TableCell></TableRow>
                       )}
+<<<<<<< HEAD
                       {paged.map((item) => (
+=======
+                      {filteredItems.map((item) => (
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                         <TableRow key={item.id}>
                           <TableCell className="font-medium">{item.code}</TableCell>
                           <TableCell>
@@ -216,6 +257,7 @@ export default function InventoryPage() {
                           <TableCell>{item.unit}</TableCell>
                           <TableCell>{getStatusBadge(item.status)}</TableCell>
                           <TableCell>
+<<<<<<< HEAD
                             <div className="flex items-center gap-1">
                               <Button variant="ghost" size="icon" className="h-7 w-7" title="View Details"
                                 onClick={() => setSelectedItem(item)}>
@@ -230,11 +272,28 @@ export default function InventoryPage() {
                                 <Package className="h-3.5 w-3.5" />
                               </Button>
                             </div>
+=======
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon"><MoreVertical className="h-4 w-4" /></Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => setSelectedItem(item)}>View Details</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => { setReceiveForm({ itemCode: item.code, quantity: '', notes: '' }); setReceiveStockOpen(true); }}>
+                                  Receive Stock
+                                </DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => { setAdjustForm({ itemCode: item.code, newQuantity: String(item.currentStock), reason: '' }); setAdjustOpen(true); }}>
+                                  Adjust Stock
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                           </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
                   </Table>
+<<<<<<< HEAD
                   <Pagination
                     total={filteredItems.length}
                     page={page}
@@ -242,6 +301,8 @@ export default function InventoryPage() {
                     onPageChange={setPage}
                     onPageSizeChange={setPageSize}
                   />
+=======
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                 </TabsContent>
               </Tabs>
             </CardContent>

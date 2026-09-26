@@ -1,12 +1,20 @@
+<<<<<<< HEAD
 import { useState, useMemo } from 'react';
+=======
+import { useState } from 'react';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+<<<<<<< HEAD
 import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs';
 import { Pagination, usePagination } from '@/components/ui/pagination';
+=======
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
@@ -17,7 +25,11 @@ import {
   Dialog, DialogContent, DialogDescription, DialogFooter,
   DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
+<<<<<<< HEAD
 import { Search, DollarSign, Plus, Download, Eye, TrendingUp, CheckCircle, Clock, AlertCircle, Filter } from 'lucide-react';
+=======
+import { Search, DollarSign, Plus, Download, MoreVertical, TrendingUp, CheckCircle, Clock, AlertCircle } from 'lucide-react';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
 interface Payment {
   id: string;
@@ -55,11 +67,16 @@ export default function PaymentsPage() {
 
   const showSuccess = (msg: string) => { setSuccessMsg(msg); setTimeout(() => setSuccessMsg(''), 2500); };
 
+<<<<<<< HEAD
   const filteredPayments = useMemo(() => payments.filter(p => {
+=======
+  const filteredPayments = payments.filter(p => {
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
     const q = search.toLowerCase();
     const matchSearch = p.paymentId.toLowerCase().includes(q) || p.patient.toLowerCase().includes(q) || p.invoice.toLowerCase().includes(q);
     const matchTab =
       activeTab === 'all' ||
+<<<<<<< HEAD
       (activeTab === 'today'   && p.date === 'Today') ||
       (activeTab === 'pending' && p.status === 'Pending') ||
       (activeTab === 'failed'  && p.status === 'Failed');
@@ -67,6 +84,13 @@ export default function PaymentsPage() {
   }), [payments, search, activeTab]);
 
   const { page, pageSize, paged, setPage, setPageSize } = usePagination(filteredPayments, 10);
+=======
+      (activeTab === 'today' && p.date === 'Today') ||
+      (activeTab === 'pending' && p.status === 'Pending') ||
+      (activeTab === 'failed' && p.status === 'Failed');
+    return matchSearch && matchTab;
+  });
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
   const handleRecord = () => {
     if (!form.patient || !form.amount) return;
@@ -117,6 +141,7 @@ export default function PaymentsPage() {
 
       <div className="flex items-center justify-between">
         <div>
+<<<<<<< HEAD
           <h1 className="text-xl font-bold tracking-tight">Payments</h1>
           <p className="text-xs text-muted-foreground">Manage patient payments and collections</p>
         </div>
@@ -168,6 +193,36 @@ export default function PaymentsPage() {
               <Tabs value={activeTab} className="w-full" onValueChange={setActiveTab}>
                 <TabsList className="hidden" />
                 <TabsContent value={activeTab} className="mt-0">
+=======
+          <h1 className="text-3xl font-bold tracking-tight">Payments</h1>
+          <p className="text-muted-foreground">Manage patient payments and collections</p>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button variant="outline" onClick={() => setExportOpen(true)}><Download className="mr-2 h-4 w-4" />Export</Button>
+          <Button onClick={() => setRecordOpen(true)}><Plus className="mr-2 h-4 w-4" />Record Payment</Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-3 space-y-6">
+          <Card>
+            <CardHeader><CardTitle>Payment Transactions</CardTitle><CardDescription>View and manage all payment transactions</CardDescription></CardHeader>
+            <CardContent>
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input placeholder="Search payments..." className="pl-10" value={search} onChange={e => setSearch(e.target.value)} />
+                </div>
+              </div>
+              <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
+                <TabsList>
+                  <TabsTrigger value="all">All ({payments.length})</TabsTrigger>
+                  <TabsTrigger value="today">Today</TabsTrigger>
+                  <TabsTrigger value="pending">Pending ({payments.filter(p => p.status === 'Pending').length})</TabsTrigger>
+                  <TabsTrigger value="failed">Failed</TabsTrigger>
+                </TabsList>
+                <TabsContent value={activeTab} className="mt-4">
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -185,7 +240,11 @@ export default function PaymentsPage() {
                       {filteredPayments.length === 0 && (
                         <TableRow><TableCell colSpan={8} className="text-center text-muted-foreground py-8">No payments found</TableCell></TableRow>
                       )}
+<<<<<<< HEAD
                       {paged.map((p) => (
+=======
+                      {filteredPayments.map((p) => (
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                         <TableRow key={p.id}>
                           <TableCell className="font-medium">{p.paymentId}</TableCell>
                           <TableCell>{p.invoice}</TableCell>
@@ -200,6 +259,7 @@ export default function PaymentsPage() {
                           <TableCell>{p.method}</TableCell>
                           <TableCell>{getStatusBadge(p.status)}</TableCell>
                           <TableCell>
+<<<<<<< HEAD
                             <div className="flex items-center gap-1">
                               <Button variant="ghost" size="icon" className="h-7 w-7" title="View Details"
                                 onClick={() => { setSelectedPayment(p); setViewOpen(true); }}>
@@ -216,11 +276,27 @@ export default function PaymentsPage() {
                                 </Button>
                               )}
                             </div>
+=======
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon"><MoreVertical className="h-4 w-4" /></Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => { setSelectedPayment(p); setViewOpen(true); }}>View Details</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => showSuccess(`Receipt downloaded for ${p.paymentId}`)}>Download Receipt</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => handleSendReceipt(p)}>Send Receipt</DropdownMenuItem>
+                                {p.status === 'Completed' && (
+                                  <DropdownMenuItem onClick={() => { setSelectedPayment(p); setRefundOpen(true); }} className="text-red-600">Refund Payment</DropdownMenuItem>
+                                )}
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                           </TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
                   </Table>
+<<<<<<< HEAD
                   <Pagination
                     total={filteredPayments.length}
                     page={page}
@@ -228,6 +304,8 @@ export default function PaymentsPage() {
                     onPageChange={setPage}
                     onPageSizeChange={setPageSize}
                   />
+=======
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                 </TabsContent>
               </Tabs>
             </CardContent>

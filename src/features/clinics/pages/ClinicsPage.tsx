@@ -1,15 +1,27 @@
+<<<<<<< HEAD
 import { useState, useMemo } from 'react';
+=======
+import { useState } from 'react';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+<<<<<<< HEAD
 import { Pagination, usePagination } from '@/components/ui/pagination';
+=======
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from '@/components/ui/table';
 import {
+<<<<<<< HEAD
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
+=======
+  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
+  DropdownMenuSeparator, DropdownMenuTrigger,
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 } from '@/components/ui/dropdown-menu';
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter,
@@ -19,8 +31,13 @@ import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
 import {
+<<<<<<< HEAD
   Search, Plus, Edit, Trash2, Eye, Phone, Mail,
   Building, MapPin, CreditCard, DollarSign, Filter,
+=======
+  Search, Plus, MoreHorizontal, Edit, Trash2, Eye, Phone, Mail,
+  Building, MapPin, CreditCard, DollarSign,
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 } from 'lucide-react';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { Clinic } from '@/types/core';
@@ -72,22 +89,32 @@ export default function ClinicsPage() {
   const canUpdate = hasPermission('clinic', 'update');
   const canDelete = hasPermission('clinic', 'delete');
 
+<<<<<<< HEAD
   const [statusFilter, setStatusFilter] = useState<'ALL'|'ACTIVE'|'INACTIVE'>('ALL');
 
   const filteredClinics = useMemo(() => clinics.filter((c) => {
     const q = searchQuery.toLowerCase();
     const ms = (
+=======
+  const filteredClinics = clinics.filter((c) => {
+    const q = searchQuery.toLowerCase();
+    return (
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
       c.clinicNumber.toLowerCase().includes(q) ||
       c.name.toLowerCase().includes(q) ||
       c.email?.toLowerCase().includes(q) ||
       c.phone?.toLowerCase().includes(q) ||
       c.address?.toLowerCase().includes(q)
     );
+<<<<<<< HEAD
     const mst = statusFilter === 'ALL' || (statusFilter === 'ACTIVE' && c.isActive) || (statusFilter === 'INACTIVE' && !c.isActive);
     return ms && mst;
   }), [clinics, searchQuery, statusFilter]);
 
   const { page, pageSize, paged, setPage, setPageSize } = usePagination(filteredClinics, 10);
+=======
+  });
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
   const handleSaveNew = () => {
     if (!form.name) return;
@@ -184,6 +211,7 @@ export default function ClinicsPage() {
   );
 
   return (
+<<<<<<< HEAD
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -194,10 +222,23 @@ export default function ClinicsPage() {
         {canCreate && (
           <Button size="sm" onClick={() => setIsNewDialogOpen(true)}>
             <Plus className="mr-1.5 h-3.5 w-3.5" /> New Clinic
+=======
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Clinics</h1>
+          <p className="text-muted-foreground">Manage dental clinic information and billing details</p>
+        </div>
+        {canCreate && (
+          <Button onClick={() => setIsNewDialogOpen(true)}>
+            <Plus className="mr-2 h-4 w-4" />
+            New Clinic
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
           </Button>
         )}
       </div>
 
+<<<<<<< HEAD
       {/* Stats — top of page */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
@@ -255,10 +296,47 @@ export default function ClinicsPage() {
                 <TableHead className="text-xs">Status</TableHead>
                 <TableHead className="text-xs">Created</TableHead>
                 <TableHead className="text-xs">Actions</TableHead>
+=======
+      <Card>
+        <CardContent className="pt-6">
+          <div className="flex items-center gap-4">
+            <div className="relative flex-1">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search clinics by name, number, email, or phone..."
+                className="pl-8"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <Badge variant="outline">Active ({clinics.filter(c => c.isActive).length})</Badge>
+            <Badge variant="outline">Inactive ({clinics.filter(c => !c.isActive).length})</Badge>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle>Clinic Records</CardTitle></CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Number</TableHead>
+                <TableHead>Clinic Name</TableHead>
+                <TableHead>Contact</TableHead>
+                <TableHead>Address</TableHead>
+                <TableHead>Payment Terms</TableHead>
+                <TableHead>Credit Limit</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead>Created</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredClinics.length === 0 && (
+<<<<<<< HEAD
                 <TableRow><TableCell colSpan={9} className="text-center text-xs text-muted-foreground py-8">No clinics found</TableCell></TableRow>
               )}
               {paged.map((clinic) => (
@@ -302,10 +380,61 @@ export default function ClinicsPage() {
                       )}
                     </div>
                   </TableCell>
+=======
+                <TableRow><TableCell colSpan={9} className="text-center text-muted-foreground py-8">No clinics found</TableCell></TableRow>
+              )}
+              {filteredClinics.map((clinic) => (
+                <TableRow key={clinic.id}>
+                  <TableCell className="font-medium">{clinic.clinicNumber}</TableCell>
+                  <TableCell>
+                    <div className="font-medium">{clinic.name}</div>
+                    {clinic.taxId && <div className="text-sm text-muted-foreground">Tax: {clinic.taxId}</div>}
+                  </TableCell>
+                  <TableCell>
+                    <div className="space-y-1">
+                      {clinic.phone && <div className="flex items-center gap-1 text-sm"><Phone className="h-3 w-3" />{clinic.phone}</div>}
+                      {clinic.email && <div className="flex items-center gap-1 text-sm"><Mail className="h-3 w-3" />{clinic.email}</div>}
+                    </div>
+                  </TableCell>
+                  <TableCell className="max-w-[180px] truncate">{clinic.address || 'N/A'}</TableCell>
+                  <TableCell><div className="flex items-center gap-1"><CreditCard className="h-3 w-3" />{clinic.paymentTerms || 30} days</div></TableCell>
+                  <TableCell><div className="flex items-center gap-1"><DollarSign className="h-3 w-3" />{formatCurrency(clinic.creditLimit || 0)}</div></TableCell>
+                  <TableCell>
+                    <Badge variant={clinic.isActive ? 'default' : 'secondary'}>{clinic.isActive ? 'Active' : 'Inactive'}</Badge>
+                  </TableCell>
+                  <TableCell>{formatDate(clinic.createdAt, 'short')}</TableCell>
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon"><MoreHorizontal className="h-4 w-4" /></Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                        <DropdownMenuItem onClick={() => { setSelectedClinic(clinic); setIsViewDialogOpen(true); }}>
+                          <Eye className="mr-2 h-4 w-4" /> View Details
+                        </DropdownMenuItem>
+                        {canUpdate && (
+                          <DropdownMenuItem onClick={() => openEdit(clinic)}>
+                            <Edit className="mr-2 h-4 w-4" /> Edit
+                          </DropdownMenuItem>
+                        )}
+                        {canDelete && (
+                          <>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem onClick={() => { setSelectedClinic(clinic); setIsDeleteDialogOpen(true); }} className="text-red-600">
+                              <Trash2 className="mr-2 h-4 w-4" /> Delete
+                            </DropdownMenuItem>
+                          </>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+<<<<<<< HEAD
           <Pagination
             total={filteredClinics.length}
             page={page}
@@ -313,6 +442,8 @@ export default function ClinicsPage() {
             onPageChange={setPage}
             onPageSizeChange={setPageSize}
           />
+=======
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
         </CardContent>
       </Card>
 

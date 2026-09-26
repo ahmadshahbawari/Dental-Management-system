@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState, useMemo } from 'react';
+=======
+import { useState } from 'react';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -6,7 +10,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+<<<<<<< HEAD
 import { Pagination, usePagination } from '@/components/ui/pagination';
+=======
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
@@ -70,7 +77,11 @@ export default function ProductionPage() {
 
   const technicians = ['All', 'Michael Chen', 'Sarah Johnson'];
 
+<<<<<<< HEAD
   const filteredCases = useMemo(() => cases.filter(c => {
+=======
+  const filteredCases = cases.filter(c => {
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
     const tabMatch =
       activeTab === 'all' ||
       (activeTab === 'assigned' && c.technician === 'Michael Chen') ||
@@ -79,9 +90,13 @@ export default function ProductionPage() {
     const stageMatch = stageFilter === 'All' || c.stage === stageFilter;
     const techMatch = techFilter === 'All' || c.technician === techFilter;
     return tabMatch && stageMatch && techMatch;
+<<<<<<< HEAD
   }), [cases, activeTab, stageFilter, techFilter]);
 
   const { page, pageSize, paged, setPage, setPageSize } = usePagination(filteredCases, 10);
+=======
+  });
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
   const showSuccess = (msg: string) => {
     setSuccessMsg(msg);
@@ -150,8 +165,13 @@ export default function ProductionPage() {
 
       <div className="flex items-center justify-between">
         <div>
+<<<<<<< HEAD
           <h1 className="text-xl font-bold tracking-tight">Production Board</h1>
           <p className="text-xs text-muted-foreground">Manage technician workflows and production stages</p>
+=======
+          <h1 className="text-3xl font-bold tracking-tight">Production Board</h1>
+          <p className="text-muted-foreground">Manage technician workflows and production stages</p>
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
         </div>
         <div className="flex items-center space-x-2">
           <Button variant="outline" onClick={() => setFilterOpen(true)}>
@@ -186,6 +206,7 @@ export default function ProductionPage() {
         </div>
       )}
 
+<<<<<<< HEAD
       {/* Stats — top of page */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
@@ -201,6 +222,8 @@ export default function ProductionPage() {
         ))}
       </div>
 
+=======
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div className="lg:col-span-3 space-y-6">
           <Card>
@@ -296,7 +319,11 @@ export default function ProductionPage() {
                       {filteredCases.length === 0 && (
                         <TableRow><TableCell colSpan={8} className="text-center text-muted-foreground py-8">No cases found</TableCell></TableRow>
                       )}
+<<<<<<< HEAD
                       {paged.map((c) => (
+=======
+                      {filteredCases.map((c) => (
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                         <TableRow key={c.id}>
                           <TableCell className="font-medium">{c.caseNumber}</TableCell>
                           <TableCell>{c.patient}</TableCell>
@@ -333,6 +360,7 @@ export default function ProductionPage() {
                       ))}
                     </TableBody>
                   </Table>
+<<<<<<< HEAD
                   <Pagination
                     total={filteredCases.length}
                     page={page}
@@ -340,6 +368,8 @@ export default function ProductionPage() {
                     onPageChange={setPage}
                     onPageSizeChange={setPageSize}
                   />
+=======
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
                 </TabsContent>
               </Tabs>
             </CardContent>

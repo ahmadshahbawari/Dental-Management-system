@@ -53,6 +53,7 @@
   * {
     @apply border-border;
   }
+<<<<<<< HEAD
   html {
     font-size: 14px; /* reduce base font size for denser UI */
   }
@@ -74,4 +75,9 @@
   .compact-mode .p-4  { padding: 0.5rem !important; }
   .compact-mode .space-y-6 > * + * { margin-top: 0.75rem !important; }
   .compact-mode .space-y-4 > * + * { margin-top: 0.5rem !important; }
+=======
+  body {
+    @apply bg-background text-foreground;
+  }
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 }

@@ -1,7 +1,10 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, Role, AuthResponse } from '@/types/auth';
 import { api } from '@/lib/api';
+<<<<<<< HEAD
 import { validateLogin } from '@/lib/registeredUsers';
+=======
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
 interface AuthContextType {
   user: User | null;
@@ -46,6 +49,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const login = async (credentials: { username: string; password: string; role?: Role }) => {
     try {
       setIsLoading(true);
+<<<<<<< HEAD
 
       // Validate against registered users store
       const registeredUser = validateLogin(credentials.username, credentials.password);
@@ -69,6 +73,36 @@ export function AuthProvider({ children }: AuthProviderProps) {
         email: registeredUser.email,
         firstName: firstName ?? registeredUser.name,
         lastName: rest.join(' ') || '',
+=======
+      // In real implementation, this would call the API
+      // For now, simulate a successful login based on the selected role.
+      const selectedRole = credentials.role ?? Role.ADMIN;
+
+      // Build the roles array: always include the chosen role.
+      // Admins additionally get full access; other roles stand on their own.
+      const roles: Role[] =
+        selectedRole === Role.ADMIN
+          ? [Role.ADMIN]
+          : [selectedRole];
+
+      // Derive a display name from the role for the mock user
+      const roleNames: Record<Role, string> = {
+        [Role.ADMIN]:        'Admin',
+        [Role.MANAGER]:      'Manager',
+        [Role.RECEPTIONIST]: 'Receptionist',
+        [Role.TECHNICIAN]:   'Technician',
+        [Role.QC]:           'QC Specialist',
+        [Role.ACCOUNTANT]:   'Accountant',
+        [Role.STOREKEEPER]:  'Storekeeper',
+      };
+
+      const mockUser: User = {
+        id: '1',
+        username: credentials.username,
+        email: `${credentials.username}@dentallab.com`,
+        firstName: roleNames[selectedRole],
+        lastName: 'User',
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
         roles,
         isActive: true,
         lastLoginAt: new Date().toISOString(),
@@ -82,10 +116,21 @@ export function AuthProvider({ children }: AuthProviderProps) {
         user: mockUser,
       };
 
+<<<<<<< HEAD
       localStorage.setItem('dental_lab_user',          JSON.stringify(mockUser));
       localStorage.setItem('dental_lab_token',          mockAuthResponse.accessToken);
       localStorage.setItem('dental_lab_refresh_token',  mockAuthResponse.refreshToken);
       api.defaults.headers.common['Authorization'] = `Bearer ${mockAuthResponse.accessToken}`;
+=======
+      // Store auth data
+      localStorage.setItem('dental_lab_user',          JSON.stringify(mockUser));
+      localStorage.setItem('dental_lab_token',          mockAuthResponse.accessToken);
+      localStorage.setItem('dental_lab_refresh_token',  mockAuthResponse.refreshToken);
+
+      // Set API headers
+      api.defaults.headers.common['Authorization'] = `Bearer ${mockAuthResponse.accessToken}`;
+
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
       setUser(mockUser);
     } catch (error) {
       console.error('Login failed:', error);

@@ -1,14 +1,23 @@
+<<<<<<< HEAD
 import { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+=======
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+<<<<<<< HEAD
 import { Pagination, usePagination } from '@/components/ui/pagination';
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from '@/components/ui/select';
+=======
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
@@ -16,8 +25,12 @@ import {
   Dialog, DialogContent, DialogDescription, DialogFooter,
   DialogHeader, DialogTitle,
 } from '@/components/ui/dialog';
+<<<<<<< HEAD
 import { Search, FileText, DollarSign, Plus, Download, Eye, TrendingUp, CheckCircle, Filter } from 'lucide-react';
 import { MOCK_CLINICS } from '@/lib/mockData';
+=======
+import { Search, FileText, DollarSign, Plus, Download, MoreVertical, TrendingUp, CheckCircle } from 'lucide-react';
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 interface Invoice {
   id: string;
   number: string;
@@ -52,11 +65,16 @@ export default function InvoicesPage() {
 
   const showSuccess = (msg: string) => { setSuccessMsg(msg); setTimeout(() => setSuccessMsg(''), 2500); };
 
+<<<<<<< HEAD
   const filteredInvoices = useMemo(() => invoices.filter(inv => {
+=======
+  const filteredInvoices = invoices.filter(inv => {
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
     const q = search.toLowerCase();
     const matchSearch = inv.number.toLowerCase().includes(q) || inv.patient.toLowerCase().includes(q) || inv.clinic.toLowerCase().includes(q);
     const matchTab =
       activeTab === 'all' ||
+<<<<<<< HEAD
       (activeTab === 'unpaid'  && inv.status === 'Unpaid') ||
       (activeTab === 'paid'    && inv.status === 'Paid') ||
       (activeTab === 'overdue' && inv.status === 'Overdue');
@@ -64,6 +82,13 @@ export default function InvoicesPage() {
   }), [invoices, search, activeTab]);
 
   const { page, pageSize, paged, setPage, setPageSize } = usePagination(filteredInvoices, 10);
+=======
+      (activeTab === 'unpaid' && inv.status === 'Unpaid') ||
+      (activeTab === 'paid' && inv.status === 'Paid') ||
+      (activeTab === 'overdue' && inv.status === 'Overdue');
+    return matchSearch && matchTab;
+  });
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
 
   const handleCreate = () => {
     if (!form.patient || !form.amount) return;
@@ -99,13 +124,18 @@ export default function InvoicesPage() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="space-y-4">
+=======
+    <div className="space-y-6">
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
       {successMsg && (
         <div className="fixed top-4 right-4 z-50 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-2">
           <CheckCircle className="h-5 w-5" />{successMsg}
         </div>
       )}
 
+<<<<<<< HEAD
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -261,11 +291,121 @@ export default function InvoicesPage() {
                   <div><p className="text-[11px] text-muted-foreground">Collections Rate</p><p className="text-base font-bold">{invoices.length > 0 ? Math.round((invoices.filter(i=>i.status==='Paid').length/invoices.length)*100) : 0}%</p></div>
                   <div><p className="text-[11px] text-muted-foreground">Total Invoices</p><p className="text-base font-bold">{invoices.length}</p></div>
                 </div>
+=======
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Invoices</h1>
+          <p className="text-muted-foreground">Manage invoices and billing</p>
+        </div>
+        <Button onClick={() => setCreateOpen(true)}>
+          <Plus className="mr-2 h-4 w-4" />Create Invoice
+        </Button>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="lg:col-span-3 space-y-6">
+          <Card>
+            <CardHeader><CardTitle>Invoice Management</CardTitle><CardDescription>View and manage all invoices</CardDescription></CardHeader>
+            <CardContent>
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                  <Input placeholder="Search invoices..." className="pl-10" value={search} onChange={e => setSearch(e.target.value)} />
+                </div>
+              </div>
+              <Tabs defaultValue="all" className="w-full" onValueChange={setActiveTab}>
+                <TabsList>
+                  <TabsTrigger value="all">All ({invoices.length})</TabsTrigger>
+                  <TabsTrigger value="unpaid">Unpaid ({invoices.filter(i => i.status === 'Unpaid').length})</TabsTrigger>
+                  <TabsTrigger value="paid">Paid</TabsTrigger>
+                  <TabsTrigger value="overdue">Overdue ({invoices.filter(i => i.status === 'Overdue').length})</TabsTrigger>
+                </TabsList>
+                <TabsContent value={activeTab} className="mt-4">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Invoice #</TableHead>
+                        <TableHead>Patient / Clinic</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead>Due Date</TableHead>
+                        <TableHead>Amount</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredInvoices.length === 0 && (
+                        <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground py-8">No invoices found</TableCell></TableRow>
+                      )}
+                      {filteredInvoices.map((inv) => (
+                        <TableRow key={inv.id}>
+                          <TableCell className="font-medium">{inv.number}</TableCell>
+                          <TableCell>
+                            <div className="font-medium">{inv.patient}</div>
+                            <div className="text-sm text-muted-foreground">{inv.clinic}</div>
+                          </TableCell>
+                          <TableCell>{inv.date}</TableCell>
+                          <TableCell>{inv.dueDate}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center space-x-1">
+                              <DollarSign className="h-4 w-4 text-muted-foreground" />
+                              <span className="font-medium">${inv.amount.toFixed(2)}</span>
+                            </div>
+                          </TableCell>
+                          <TableCell>{getStatusBadge(inv.status)}</TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="icon"><MoreVertical className="h-4 w-4" /></Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem onClick={() => { setSelectedInvoice(inv); setViewInvoiceOpen(true); }}>View Invoice</DropdownMenuItem>
+                                {inv.status !== 'Paid' && <DropdownMenuItem onClick={() => markPaid(inv.id)}>Mark as Paid</DropdownMenuItem>}
+                                <DropdownMenuItem>Send Reminder</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => showSuccess('Invoice downloaded!')}><Download className="mr-2 h-4 w-4" />Download PDF</DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader><CardTitle>Invoice Statistics</CardTitle></CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div><p className="text-sm font-medium">Outstanding</p><p className="text-2xl font-bold text-red-500">${invoices.filter(i => i.status !== 'Paid').reduce((s, i) => s + i.amount, 0).toFixed(0)}</p></div>
+                  <div><p className="text-sm font-medium">Collected</p><p className="text-2xl font-bold text-green-500">${invoices.filter(i => i.status === 'Paid').reduce((s, i) => s + i.amount, 0).toFixed(0)}</p></div>
+                  <div><p className="text-sm font-medium">Overdue</p><p className="text-2xl font-bold text-amber-500">{invoices.filter(i => i.status === 'Overdue').length}</p></div>
+                  <div><p className="text-sm font-medium">Total Invoices</p><p className="text-2xl font-bold">{invoices.length}</p></div>
+                </div>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader><CardTitle>Recent Payments</CardTitle></CardHeader>
+              <CardContent className="space-y-3">
+                {invoices.filter(i => i.status === 'Paid').map(inv => (
+                  <div key={inv.id} className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <TrendingUp className="h-4 w-4 text-green-500" />
+                      <div><p className="text-sm">Payment Received</p><p className="text-xs text-muted-foreground">{inv.number}</p></div>
+                    </div>
+                    <div className="text-right"><p className="text-sm font-medium">${inv.amount.toFixed(2)}</p></div>
+                  </div>
+                ))}
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
               </CardContent>
             </Card>
           </div>
         </div>
 
+<<<<<<< HEAD
         <div className="space-y-4">
           <Card>
             <CardHeader className="py-3 px-4"><CardTitle className="text-sm">Quick Actions</CardTitle></CardHeader>
@@ -278,6 +418,29 @@ export default function InvoicesPage() {
               </Button>
               <Button className="w-full justify-start text-xs h-8" size="sm" variant="outline" onClick={() => setExportOpen(true)}>
                 <Download className="mr-1.5 h-3.5 w-3.5" />Export Data
+=======
+        <div className="space-y-6">
+          <Card>
+            <CardHeader><CardTitle className="text-lg">Financial Overview</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div><p className="text-sm font-medium">Total Revenue</p><p className="text-2xl font-bold text-green-500">${invoices.reduce((s, i) => s + i.amount, 0).toFixed(0)}</p></div>
+                <div><p className="text-sm font-medium">Collections Rate</p><p className="text-2xl font-bold text-green-500">{invoices.length > 0 ? Math.round((invoices.filter(i => i.status === 'Paid').length / invoices.length) * 100) : 0}%</p></div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader><CardTitle className="text-lg">Quick Actions</CardTitle></CardHeader>
+            <CardContent className="space-y-3">
+              <Button className="w-full justify-start" onClick={() => setCreateOpen(true)}>
+                <Plus className="mr-2 h-4 w-4" />Create Invoice
+              </Button>
+              <Button className="w-full justify-start" variant="outline" onClick={() => setViewReportOpen(true)}>
+                <FileText className="mr-2 h-4 w-4" />View Reports
+              </Button>
+              <Button className="w-full justify-start" variant="outline" onClick={() => setExportOpen(true)}>
+                <Download className="mr-2 h-4 w-4" />Export Data
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
               </Button>
             </CardContent>
           </Card>
@@ -291,6 +454,7 @@ export default function InvoicesPage() {
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2"><Label>Patient Name *</Label><Input value={form.patient} onChange={e => setForm({ ...form, patient: e.target.value })} placeholder="Patient name" /></div>
+<<<<<<< HEAD
               <div className="space-y-2">
                 <Label>Clinic *</Label>
                 <Select value={form.clinic} onValueChange={v => setForm({ ...form, clinic: v })}>
@@ -302,6 +466,9 @@ export default function InvoicesPage() {
                   </SelectContent>
                 </Select>
               </div>
+=======
+              <div className="space-y-2"><Label>Clinic</Label><Input value={form.clinic} onChange={e => setForm({ ...form, clinic: e.target.value })} placeholder="Clinic name" /></div>
+>>>>>>> 9d2aa396b742487e9588dd6fe04ae1ce95a81ac2
               <div className="space-y-2"><Label>Due Date</Label><Input type="date" value={form.dueDate} onChange={e => setForm({ ...form, dueDate: e.target.value })} /></div>
               <div className="space-y-2"><Label>Amount ($) *</Label><Input type="number" min="0" step="0.01" value={form.amount} onChange={e => setForm({ ...form, amount: e.target.value })} placeholder="0.00" /></div>
             </div>
